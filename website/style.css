@@ -1,0 +1,12 @@
+body {
+    background-color:rgb(200, 220, 200);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: 100vh;
+}
+button {
+    width: 150px;
+}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>MathObliterator3000</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    </head>
+    <body>
+        <h2>upload a pic</h2>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image_file" accept="image/*" required>
+            <button type="submit">Upload</button>
+        </form>
+    </body>
+</html>
