@@ -15,5 +15,4 @@ COPY . .
 
 EXPOSE 10000
 
-CMD ["gunicorn", "-b", "0.0.0.0:10000", "--timeout", "120", "server.server:app"]
-
+CMD ["gunicorn", "--chdir", "server", "-b", "0.0.0.0:10000", "--timeout", "120", "server:app"]
