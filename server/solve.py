@@ -18,7 +18,7 @@ p2t = Pix2Text.from_config(config=config)
 def process_and_solve(img_path):
     latex_str = p2t.recognize(img_path)
     # using regular expressions to clean up whitespaces between digits
-    clean_latex = re.sub(r'(?<=\d)\s+(?=\d)', '', latex_str.strip())
+    clean_latex = latex2sympy(re.sub(r'(?<=\d)\s+(?=\d)', '', latex_str.strip()))
     
     try:
         found_variables = list(clean_latex.free_symbols)
