@@ -15,4 +15,5 @@ COPY . .
 
 EXPOSE 10000
 
-CMD ["python", "server/server.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:10000", "--timeout", "120", "server.server:app"]
+
