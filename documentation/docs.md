@@ -11,7 +11,7 @@ User accounts
 Histories of past calculations    
 Problems beyond SymPy's capabilities  
 Scanning imperfectly cropped images
-Rendering LaTeX code
+Rendering LaTeX code    
 Anything that includes functions (lim, sin, lg, and so on)
 
 ### Infrastructure
