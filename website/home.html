@@ -4,14 +4,42 @@
         <meta charset="utf-8">
         <title>MathObliterator3000</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <script id="MathJax-script" async src="https://jsdelivr.net"></script>
+<<<<<<< HEAD
+
+        <script>
+            window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+            };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+=======
+>>>>>>> 4500488bc3ad6265c0ee4aa6a490cd00af6da019
     </head>
     <body>
         <h2>upload a pic</h2>
-        <form id="upload-form" action="/solve" method="POST" enctype="multipart/form-data">
+        <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
             <input type="file" id="image-file" name="image_file" accept="image/*" required>
             <button type="submit">Upload</button>
         </form>
+
+        {% if latex is not none or result is not none %}
+            <p>The parsed expression is:</p>
+            {{ latex | safe }}
+
+            <p><strong>Result:</strong> {{ result }}</p>
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise();
+                    }
+                });
+            </script>
+        {% endif %}
+
+        <p>Made by Ni Anton</p>
 
         <script>
             document.addEventListener('paste', function (event) {
@@ -32,6 +60,5 @@
                 }
             });
         </script>
-        <p>Made by Ni Anton</p>
     </body>
 </html>
