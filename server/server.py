@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
 import solve
@@ -27,7 +27,7 @@ def allowed_file(filename):
 def home():
     return render_template("home.html")
 
-@app.route('/solve', methods=['POST'])
+@app.route('/', methods=['POST'])
 def upload():
     # handling invalid inputs
     if 'image_file' not in request.files:
@@ -49,7 +49,7 @@ def upload():
         if os.path.exists(file_path):
             os.remove(file_path)
 
-        return solution, 200
+        return render_template('home.html', latex=solution['parsed_expression'], result=solution['result']), 200
         
     return "File type not allowed", 400
 

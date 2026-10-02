@@ -18,13 +18,14 @@ p2t = Pix2Text.from_config(config=config)
 def process_and_solve(img_path):
     latex_str = p2t.recognize(img_path)
     # using regular expressions to clean up whitespaces between digits
-    clean_latex = latex2sympy(re.sub(r'(?<=\d)\s+(?=\d)', '', latex_str.strip()))
+    clean_latex = re.sub(r'(?<=\d)\s+(?=\d)', '', latex_str.strip())
+    sympy_expr = latex2sympy(clean_latex)
     
     try:
-        found_variables = list(clean_latex.free_symbols)
+        found_variables = list(sympy_expr.free_symbols)
         
         if not found_variables:
-            calculated_result = simplify(clean_latex)
+            calculated_result = simplify(sympy_expr)
             
             return {
                 "status": "success",
@@ -34,14 +35,14 @@ def process_and_solve(img_path):
                 "float_result": float(calculated_result.evalf())
             }
         
-        solutions = solve(clean_latex, found_variables)
+        solutions = solve(sympy_expr, found_variables)
         
         return {
             "status": "success",
             "type": "algebra",
-            "parsed_equation": str(clean_latex),
+            "parsed_expression": str(clean_latex),
             "variables_found": [str(v) for v in found_variables],
-            "solutions": [str(sol) for sol in solutions] if isinstance(solutions, list) else str(solutions)
+            "result": [str(sol) for sol in solutions] if isinstance(solutions, list) else str(solutions)
         }
         
     except Exception as e:
